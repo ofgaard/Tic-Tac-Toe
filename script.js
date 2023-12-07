@@ -1,4 +1,18 @@
 const gameboard = (function() {
+    let checkForWinner = (player) => {
+        if (
+            (gameboard.board[0] === player.symbol && gameboard.board[1] === player.symbol && gameboard.board[2] === player.symbol) ||
+            (gameboard.board[3] === player.symbol && gameboard.board[4] === player.symbol && gameboard.board[5] === player.symbol) ||
+            (gameboard.board[6] === player.symbol && gameboard.board[7] === player.symbol && gameboard.board[8] === player.symbol) ||
+            (gameboard.board[0] === player.symbol && gameboard.board[3] === player.symbol && gameboard.board[6] === player.symbol) ||
+            (gameboard.board[1] === player.symbol && gameboard.board[4] === player.symbol && gameboard.board[7] === player.symbol) ||
+            (gameboard.board[2] === player.symbol && gameboard.board[5] === player.symbol && gameboard.board[8] === player.symbol) ||
+            (gameboard.board[0] === player.symbol && gameboard.board[4] === player.symbol && gameboard.board[8] === player.symbol) ||
+            (gameboard.board[2] === player.symbol && gameboard.board[4] === player.symbol && gameboard.board[6] === player.symbol)
+        ) {
+            alert(`${player.handle} wins this round`);
+        }
+    };
     let makeMove = (player, position) => {
         gameboard.board.splice(position, 1, player.symbol);
         console.log(gameboard.board);
@@ -10,24 +24,7 @@ const gameboard = (function() {
     makeMove,
 };
 return board;
-})();
-
-let checkForWinner = (player) => {
-    if (
-        (gameboard.board[0] === player.symbol && gameboard.board[1] === player.symbol && gameboard.board[2] === player.symbol) ||
-        (gameboard.board[3] === player.symbol && gameboard.board[4] === player.symbol && gameboard.board[5] === player.symbol) ||
-        (gameboard.board[6] === player.symbol && gameboard.board[7] === player.symbol && gameboard.board[8] === player.symbol) ||
-        (gameboard.board[0] === player.symbol && gameboard.board[3] === player.symbol && gameboard.board[6] === player.symbol) ||
-        (gameboard.board[1] === player.symbol && gameboard.board[4] === player.symbol && gameboard.board[7] === player.symbol) ||
-        (gameboard.board[2] === player.symbol && gameboard.board[5] === player.symbol && gameboard.board[8] === player.symbol) ||
-        (gameboard.board[0] === player.symbol && gameboard.board[4] === player.symbol && gameboard.board[8] === player.symbol) ||
-        (gameboard.board[2] === player.symbol && gameboard.board[4] === player.symbol && gameboard.board[6] === player.symbol)
-    ) {
-        alert(`${player.handle} wins this round`);
-    }
-};
-
-
+})(); 
 
 const player = () => {
     const handle = prompt('Enter your name');
@@ -47,10 +44,26 @@ const game = (() => {
     playerOne.alertSelection();
     const playerTwo = player();
     playerTwo.alertSelection();
-    gameboard.makeMove(playerOne, prompt('make your move 0-8'));
-    gameboard.makeMove(playerTwo, prompt('make your move 0-8'));
-    gameboard.makeMove(playerOne, prompt('make your move 0-8'));
-    gameboard.makeMove(playerTwo, prompt('make your move 0-8'));
-    gameboard.makeMove(playerOne, prompt('make your move 0-8'));
+    let currentPlayer = playerOne;
+    let board = document.querySelector('.board');
+    boardCells = board.querySelectorAll('div'); 
+
+    const switchPlayer = () => {
+        currentPlayer = (currentPlayer === playerOne) ? playerTwo : playerOne;
+    };
+
+    boardCells.forEach((cell, index) => {
+        cell.addEventListener('click', () => {
+            if (gameboard.board[index] === '') {
+                gameboard.makeMove(currentPlayer, index);
+                cell.textContent = currentPlayer.symbol;
+                checkForWinner(currentPlayer);
+            }
+        });
+    });
+
+    boardCells.forEach(element => {
+        element.addEventListener('click', switchPlayer);
+    });
 })();
 
