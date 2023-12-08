@@ -26,10 +26,7 @@ const gameboard = (function() {
 return board;
 })(); 
 
-const player = () => {
-    const handle = prompt('Enter your name');
-    const symbol = prompt('Choose your symbol (X or O)');
-    
+const player = (handle, symbol) => {
     return {
         handle,
         symbol,
@@ -40,10 +37,30 @@ const player = () => {
 };
 
 const game = (() => {
-    const playerOne = player();
-    playerOne.alertSelection();
-    const playerTwo = player();
-    playerTwo.alertSelection();
+    const playerOneButton = document.querySelector('.submit-one');
+    const playerTwoButton = document.querySelector('.submit-two');
+    let playerOne, playerTwo;
+
+    playerOneButton.addEventListener('click', () => {
+        const handle = document.getElementById('player-one').value;
+        playerOne = player(handle, 'X');
+        const playerOneBoard = document.querySelector('.playerone');
+        const playerOneName = document.querySelector('.playerone-name');
+        playerOneName.textContent = handle;
+        playerOneBoard.appendChild(playerOneName);
+
+    });
+    
+    playerTwoButton.addEventListener('click', () => {
+        const handle = document.getElementById('player-two').value;
+        playerTwo = player(handle, 'O');
+        const playerTwoBoard = document.querySelector('.playertwo');
+        const playerTwoName = document.querySelector('.playertwo-name');
+        playerTwoName.textContent = handle;
+        playerTwoBoard.appendChild(playerTwoName);
+
+    });
+
     let currentPlayer = playerOne;
     let board = document.querySelector('.board');
     boardCells = board.querySelectorAll('div'); 
@@ -57,7 +74,6 @@ const game = (() => {
             if (gameboard.board[index] === '') {
                 gameboard.makeMove(currentPlayer, index);
                 cell.textContent = currentPlayer.symbol;
-                checkForWinner(currentPlayer);
             }
         });
     });
@@ -66,4 +82,5 @@ const game = (() => {
         element.addEventListener('click', switchPlayer);
     });
 })();
+
 

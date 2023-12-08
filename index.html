@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <meta charset="UTF-8">
@@ -9,11 +10,49 @@
 </head>
 <body>
     <div class="wrapper">
-        <div class="header">
-            <p>hi</p>
+        <div class="left">
+            <div class="logo">
+                <div class="icon"><i class="fa-solid fa-chess-board fa-2xl"></i></div>
+                <h1>Tic Tac Toe</h1>
+            </div>
+            <div class="players">
+                <h2>Players</h2>
+                <form action="hi" class="add-players">
+                    <ul>
+                        <li>
+                            <label for="player-one">Player 1:</label>
+                            <input type="text" id="player-one" name="player-one" required>
+                            <button type="button" class="button submit-one">Add player</button>
+                        </li>
+                        <li>
+                            <label for="player-two">Player 2:</label>
+                            <input type="text" id="player-two" name="player-two" required>
+                            <button type="button" class="button submit-two">Add player</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
 
         </div>
-        <div class="main">
+        <div class="right">
+
+            <div class="playerboard">
+                <div class="playerone">
+                    <h3 class="playerone-name"></h3>
+                </div>
+                <div class="playertwo">
+                    <h3 class="playertwo-name"></h3>
+                </div>
+            </div>
+            <div class="scoreboard">
+                <div class="playerone-score">
+                    2
+                </div>
+                <div class="playertwo-score">
+                    3
+                </div>
+            </div>
+            
             <div class="board">
                 <div class="topleft"></div>
                 <div class="topmid"></div>
@@ -25,15 +64,10 @@
                 <div class="botmid"></div>
                 <div class="botright"></div>
             </div>
-            <div class="buttons">
-                <button class="startgame"></button>
-            </div>
         </div>
-        <div class="footer">
-            hi
-            
-        </div>
+
     </div>
     
 </body>
 </html>
+
