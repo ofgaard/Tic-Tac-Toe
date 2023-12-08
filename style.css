@@ -103,3 +103,18 @@ body {
     border-radius: 10px;
     color: grey;
 }
+
+.board >div:hover {
+    background-color: orange;
+}
+
+.reset {
+    margin-top: 50px;
+    border-radius: 4px;
+    background-color: orange;
+    border: none;
+    width: 300px;
+    color: #0f1a3c;
+    height: 50px;
+    font-size: 1em;
+}
